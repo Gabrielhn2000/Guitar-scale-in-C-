@@ -1,0 +1,50 @@
+
+using System;
+using System.Collections.Generic;
+
+// Sistema de Escalas de Guitarra
+
+// 1. Notas musicais
+string[] notas =
+{
+    "C", "C#", "D", "D#", "E", "F",
+    "F#", "G", "G#", "A", "A#", "B"
+};
+
+// 2. Intervalos da escala maior
+int[] padraoMaior = { 2, 2, 1, 2, 2, 2, 1 };
+
+// 3. Afinação padrão da guitarra
+string[] cordas = { "E", "A", "D", "G", "B", "E" };
+
+Console.WriteLine("=== GUITAR SCALE ===");
+Console.WriteLine("Gerador de escalas de guitarra");
+
+
+string GerarEscala(string tonica)
+{
+    List<string> escala = new List<string>();
+
+    int indice = Array.IndexOf(notas, tonica);
+
+    if (indice == -1)
+    {
+        return "Tonalidade inválida!";
+    }
+
+    foreach (int intervalo in padraoMaior)
+    {
+        escala.Add(notas[indice % 12]);
+        indice += intervalo;
+    }
+
+    return string.Join(" ", escala);
+}
+
+
+Console.Write("\nDigite a tonalidade (C, D, E, F, G, A ou B): ");
+string tonicaEscolhida = Console.ReadLine() ?? "";
+
+string resultado = GerarEscala(tonicaEscolhida);
+
+Console.WriteLine("Escala: " + resultado);
